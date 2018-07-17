@@ -1,0 +1,4 @@
+Tue, 17 Jul 2018 16:52:49 comm.py[line:24] CRITICAL test!!!
+Tue, 17 Jul 2018 17:05:41 comm.py[line:27] CRITICAL test!!!
+Tue, 17 Jul 2018 17:05:59 comm.py[line:27] INFO test!!!
+Tue, 17 Jul 2018 17:09:15 comm.py[line:27] WARNING test!!!
