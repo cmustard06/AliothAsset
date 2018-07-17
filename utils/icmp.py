@@ -21,6 +21,9 @@ import array
 import time
 import socket
 
+from comm import *
+
+logger = get_logger()
 
 class ICMP(object):
     def __init__(self, timeout=2, IPv6=False):
@@ -78,28 +81,27 @@ class ICMP(object):
             try:
                 Sock.sendto(packet, (ip, 0))
             except socket.timeout:
-                print("access timeout")
+                logger.error("access timeout")
                 continue
-            except WindowsError as e:
+            except socket.gaierror as e:
                 self._flag.append(False)
-                print("Unable to connect to host")
+                logger.error("Unable to connect to host")
                 break
             except Exception as e:
                 print("send execption:%s" % str(e))
                 self._flag.append(False)
             # receive
             try:
-                recv_result = Sock.recvfrom(1024)[1][0]
+                Sock.recvfrom(1024)[1][0]
                 self._flag.append(True)
                 continue
             except socket.timeout:
-                print("recv timeout")
+                logger.error("recv timeout")
                 continue
             except Exception as e:
                 print("receive exception:{}".format(e))
                 break
         if self._flag.count(True) >= 1:
-            print(len(self._flag))
             return True
         else:
             return False
@@ -108,5 +110,5 @@ class ICMP(object):
 if __name__ == '__main__':
     n = ICMP()
 
-    ip = "baidu.com"
+    ip = "abcdefgdsff.com"
     print(n.ping(ip))
