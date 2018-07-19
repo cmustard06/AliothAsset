@@ -1,18 +1,20 @@
 #!/usr/bin/env python
 # __Author__:cmustard
 
+import subprocess
+
 import nmap
 from .model import *
 
 class Nmap(object):
+    '''nmap scan'''
     def __init__(self):
-        self.host = None
-        self.ports = None
+        pass
 
     def scan(self,host,ports):
         nm = nmap.PortScanner()
-        result = nm.scan(hosts=host,ports=ports,arguments="-sS",sudo=True)
-
+        result = nm.scan(hosts=host,ports=ports,arguments="-sS",sudo=True)["scan"]
+        return result
 
 
 
