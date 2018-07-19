@@ -54,3 +54,6 @@ class Discover(db.Model):
 
 def create_database():
 	db.create_all()
+
+if __name__ == '__main__':
+    create_database()
