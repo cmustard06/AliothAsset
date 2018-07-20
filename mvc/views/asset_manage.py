@@ -23,10 +23,10 @@ def index():
 	if request.method == 'GET':
 		return render_template("list.html",items=test)
 	elif request.method == "POST":
-		return render_template("discover.html")
+		return render_template("add.html")
 	else:
-		return render_template("discover.html")
+		return render_template("add.html")
 
 @manage.route("/add")
 def asset_add():
-    return "asset-add"
+	return render_template("add.html")
