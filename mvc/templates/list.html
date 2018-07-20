@@ -1,0 +1,83 @@
+
+{% extends 'base.html' %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block titleinfo %}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <i class="home-icon blue"> 漏洞详情</i>
+    </ul>
+</div>
+
+{% endblock %}
+{% block webinfo %}
+<div class="row">
+    <style>td {
+    padding: 5px;
+}
+
+body {
+    background: #fff;
+}
+
+.v_table {
+    width: 95%;
+    border-collapse: collapse;
+    border: 1px solid #E3E3E3;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.v_head {
+    border: 1px solid #E3E3E3;
+    background: none repeat scroll 0 0 #f1f1f1;
+}
+
+.v_td1 {
+    border: 1px solid #E3E3E3;
+    background: none repeat scroll 0 0 #F9F9F9;
+}</style>
+<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+<table class='v_table'>
+    <tr>
+        <td class="v_head" style="width:75px;">创建时间</td>
+        <td class='v_head' style='width:75px;'>更新时间</td>
+        <td class='v_head' style='width:145px;'>局域网ip</td>
+        <td class='v_head' style='width:85px;'>局域网开放端口</td>
+        <td class='v_head' style='width:85px;'>开放服务</td>
+        <td class='v_head' style='width:275px;'>公网ip</td>
+        <td class='v_head' style='width:275px;'>公网开放端口</td>
+        <td class='v_head' style='width:275px;'>服务器状态</td>
+        <td class='v_head'>详情</td>
+    </tr>
+    {% for key,item in items.iteritems() %}
+    <tr>
+        <td class="v_td1">{{ item.first_time }}</td>
+        <td class='v_td1'>{{item.update_time}}</td>
+        <td class='v_td1'>{{item.local_ip}}</td>
+        <td class='v_td1'>{{item.local_port}}</td>
+        <td class='v_td1'>{{item.service}}</td>
+        <td class='v_td1'>{{item.global_ip}}</td>
+        <td class='v_td1'>{{item.global_port}}</td>
+        <td class='v_td1'>
+            {{item.desc}}
+        </td>
+        <td class='v_td1'><a target=_blank
+                             onclick="if(window.goToUrl){return goToUrl(this.href,'get');}else{return true;}"
+                             href="{{item.url}}">{{item.url}}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% block js %}
+
+
+{% endblock %}
+
+{% endblock %}

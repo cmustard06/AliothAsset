@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="static/assets/dash/AdminLTE.min.css" />
+    <script src="static/assets/css/bootstrap-timepicker.css"></script>
+{% endblock %}
+
+{% block titleinfo %}
+
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+            <i class="home-icon blue" > 服务器信息 </i>
+        </ul>
+    </div>
+
+{% endblock %}
+
+{% block webinfo %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">添加服务器</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <!--<div class="col-xs-12">-->
+                                <!--<label>服务器类型:</label>-->
+                                <!--<textarea class="form-control" rows="2" id="scan_port" ></textarea>-->
+                                <!--<hr>-->
+                            <!--</div>-->
+                            <div class="col-xs-3">
+                                <label>服务器类型:</label>
+
+                                <select class="form-control" id="deploy">
+                                    <option value="1" >
+                                        虚拟机
+                                    </option>
+                                    <option value="2">物理机</option>
+                                </select>
+                                <hr>
+                            </div>
+.
+                            <div class="col-xs-2">
+                                <label>部署状态:</label>
+                                <select class="form-control" id="isAlive">
+                                      <option value="4" >
+                                        在线
+                                    </option>
+                                    <option value="5">库存</option>
+                                    <option value="6">借出</option>
+                                    <option value="7">报废</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>服务器名称</label>
+                                <input type="text" class="form-control" name="server_name" value="必填" id="server_name" />
+                            </div>
+
+                            <div class="col-xs-3">
+                                <label>服务器操作系统</label>
+                                <input type="text" class="form-control" name="server_os" value="必填" id="server_os" />
+                            </div>
+
+                            <div class="col-xs-5">
+                                <label>服务器运行服务</label>
+                                <textarea class="form-control" rows="3" id="service" style="resize:none" >必填</textarea>
+                                <hr>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>局域网ip地址</label>
+                                <input type="text" class="form-control" name="local_ip" value="必填" id="local_ip" />
+
+                            </div>
+                            <div class="col-xs-7">
+                                <label>局域网开放端口</label>
+                                <textarea class="form-control" rows="2" id="local_port" style="resize:none" >必填</textarea>
+                                <hr>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                             <div class="col-xs-3">
+                                <label>公网ip地址</label>
+                                <input type="text" class="form-control" name="global_ip" value="选填" id="global_ip" />
+                            </div>
+                            <div class="col-xs-7">
+                                <label>公网开放端口</label>
+                                <textarea class="form-control" rows="2" id="global_port" style="resize:none" >选填</textarea>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>服务器主机配置</label>
+                                <textarea class="form-control" rows="3" id="configuration" style="resize:none" >必填</textarea>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>网卡mac地址</label>
+                                <input type="text" class="form-control" name="eht1_mac" value="必填" id="eth1_mac" />
+                            </div>
+                             <div class="col-xs-3">
+                                <label>网卡mac地址</label>
+                                <input type="text" class="form-control" name="eht2_mac" value="选填" id="eth2_mac" />
+                            </div>
+
+
+                            <div class="col-xs-3">
+                                <label>是否存活</label>
+
+                                <select class="form-control" id="isAlive">
+                                    <option value="21" >
+                                        是
+                                    </option>
+                                    <option value="22">否</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>服务器负责人</label>
+                                <input type="text" class="form-control" name="maintainer" value="必填" id="manager" />
+                            </div>
+
+                            <div class="col-xs-3">
+                                <label>负责人电话</label>
+                                <input type="text" class="form-control" name="manager_phone" value="必填" id="manager_phone" />
+                            </div>
+
+                            <div class="col-xs-3">
+                                <label>负责人邮箱</label>
+                                <input type="text" class="form-control" name="manager_email" value="必填" id="manager_email" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>服务器运维</label>
+                                <input type="text" class="form-control" name="maintainer" value="选填" id="maintainer" />
+                            </div>
+
+                            <div class="col-xs-3">
+                                <label>运维人员电话</label>
+                                <input type="text" class="form-control" name="maintainer_phone" value="选填" id="mmaintainer_phone" />
+                            </div>
+
+                            <div class="col-xs-3">
+                                <label>负责人邮箱</label>
+                                <input type="text" class="form-control" name="maintainer_email" value="选填" id="maintainer_email" />
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-xs-11">
+                                 <hr>
+                                <label>备注</label>
+                                <textarea class="form-control" rows="3" id="desc" style="resize:none">选填</textarea>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <button class="btn btn-info pull-right btn-sm" id="port_scan_config">提交更新</button>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.box-body -->
+                </div>
+            </div>
+        {#        端口扫描配置界面结束#}
+        {#        子域名扫描配置界面开始#}
+            <!--<div class="col-xs-6">-->
+                <!--<div class="box box-info">-->
+                    <!--<div class="box-header with-border">-->
+                        <!--<h3 class="box-title">子域名扫描设置</h3>-->
+                    <!--</div>-->
+
+                    <!--<div class="box-body">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-12">-->
+                                <!--<label>扫描字典配置:</label>-->
+                                <!--<textarea class="form-control" rows="8" id="subdomain_dict"></textarea>-->
+                                <!--<hr>-->
+                            <!--</div>-->
+
+                            <!--<div class="col-xs-12">-->
+                                <!--<button class="btn btn-info pull-right btn-sm" id="subdomain_config">提交更新</button>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        {#        子域名扫描配置界面结束#}
+        {#        漏洞扫描配置界面开始#}
+            <!--<div class="col-xs-6">-->
+                <!--<div class="box box-success">-->
+                    <!--<div class="box-header with-border">-->
+                        <!--<h3 class="box-title">漏洞扫描设置</h3>-->
+                    <!--</div>-->
+
+                    <!--<div class="box-body">-->
+                        <!--<div class="row">-->
+
+                            <!--<div class="col-xs-5">-->
+                                <!--<label>任务检测频率:</label>-->
+                                <!--<input type="text" class="form-control" name="scanner_time" value="123" id="scanner_time" />-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-5">-->
+                                <!--<label>扫描线程:</label>-->
+                                <!--<input type="text" class="form-control" name="scanner_thread" value="123" id="scanner_thread" />-->
+                            <!--</div>-->
+
+                            <!--<div class="col-xs-12">-->
+                                <!--<hr>-->
+                                <!--<button class="btn btn-info pull-right btn-sm" id="scanner_config">提交更新</button>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        {#        漏洞扫描配置界面结束#}
+
+
+		</div><!-- #main-widget-container -->
+    </div>
+
+{% block js %}
+
+    <script>
+
+
+    jQuery(function($) {
+
+        $('#db_management').click(function () {
+            const collections_name = $('#collections_name').val();
+            const db_command = $('#db_command').val();
+            const object_id = $('#object_id').val();
+            const data = {
+                "collections_name": collections_name,
+                "db_command": db_command,
+                "object_id": object_id,
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/dev-tools',
+                dataType: 'json',
+                data: data,
+
+                success: function (data) {
+                    const result_json = eval(data);
+                    const result = result_json.result;
+                    $('#db_result').val(result);
+                },
+                error: function (xhr, type) {
+                }
+            });
+        });
+
+        $('#port_scan_config').click(function () {
+            const scan_port = $('#scan_port').val();
+            const port_thread = $('#port_thread').val();
+            const data = {
+                "source": 'port_scan',
+                "scan_port": scan_port,
+                "port_thread": port_thread,
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/config-change',
+                dataType: 'json',
+                data: data,
+                success: function () {
+                    alert('修改成功!');
+                    location.href = "/setting";
+                },
+                error: function () {
+                    alert('修改失败!');
+                }
+            });
+        });
+
+        {#扫描配置#}
+        $('#scanner_config').click(function () {
+            const scanner_time = $('#scanner_time').val();
+            const scanner_thread = $('#scanner_thread').val();
+            const data = {
+                "source": 'scanner_config',
+                "scanner_thread": scanner_thread,
+                "scanner_time": scanner_time,
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/config-change',
+                dataType: 'json',
+                data: data,
+                success: function () {
+                    alert('修改成功!');
+                    location.href = "/setting";
+                },
+                error: function () {
+                    alert('修改失败!');
+                }
+            });
+        });
+
+        {#子域名设置#}
+        $('#subdomain_config').click(function () {
+            const subdomain_dict = $('#subdomain_dict').val();
+            const data = {
+                "source": 'subdomain_scan',
+                "subdomain_dict": subdomain_dict,
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/config-change',
+                dataType: 'json',
+                data: data,
+                success: function () {
+                    alert('修改成功!');
+                    location.href = "/setting";
+                },
+                error: function () {
+                    alert('修改失败!');
+                }
+            });
+        });
+    });
+
+
+    </script>
+    <script src="static/assets/js/bootstrap-timepicker.js"></script>
+{% endblock %}
+
+{% endblock %}
