@@ -3,7 +3,7 @@
 
 
 import datetime
-from flask import render_template, Blueprint, render_template_string, request, url_for, redirect
+from flask import render_template, Blueprint, render_template_string, request, url_for, redirect,jsonify
 from mvc import db
 from mvc.model.model import Record
 from utils import comm
@@ -52,6 +52,59 @@ def index():
         return redirect(url_for("/404"))
 
 
-@manage.route("/add")
+@manage.route("/add",methods=['GET','POST'])
 def asset_add():
-    return render_template("add.html")
+    server_type_map = {"1":"虚拟机","2":"物理机"}
+    deployment_type_map = {"4":"在线","5":"库存","6":"借出","7":"报废"}
+
+    if request.method == 'GET':
+        return render_template("add.html")
+    if request.method == 'POST':
+        data = request.form
+        # ([('server_type', '2'), ('server_name', 'Web应用服务器'), ('deployment_type', '4'),
+        # ('service', 'apache->80,tomcat->8080'), ('local_ip', '192.168.199.2'), ('local_port', '80,8080,22'),
+        #  ('global_ip', '1.1.1.1'), ('global_port', '80,8080'), ('eth1_mac', '12:34:56:78:25:44'), ('eth2_mac', ''),
+        #  ('manager', '慕君要'), ('manager_phone', '13111111111'),
+        #  ('manager_email', 'dmmjy9.com'), ('maintainer', ''), ('maintainer_email', ''), ('desc', '')])
+        server_type = server_type_map[data['server_type']]
+        server_name = data['server_name']
+        deployment_type = deployment_type_map[data['deployment_type']]
+        service = data['service']
+        if service == "":
+            service = None
+        local_ip =  data['local_ip']
+        local_port = data["local_port"]
+        global_ip = data['global_ip']
+        if global_ip == "":
+            global_ip = None
+        global_port = data['global_port']
+        if global_port == "":
+            global_port = None
+
+        eth1_mac = data['eth1_mac']
+        eth2_mac = data['eth2_mac']
+        if eth2_mac == "":
+            eth2_mac = None
+
+        manager = data['manager']
+        manager_phone = data['manager_phone']
+        manager_email = data['manager_email']
+
+        maintainer = data['maintainer']
+        if maintainer == "":
+            maintainer = None
+        maintainer_phone = data["maintainer_phone"]
+        if maintainer_phone == "":
+            maintainer_phone = None
+        maintainer_email = data['maintainer_email']
+        if maintainer_email == "":
+            maintainer_email = None
+        desc = data["desc"]
+        if desc == "":
+            desc = None
+
+        # 数据库
+        pass
+        print(data)
+
+        return jsonify({"success":"success"})

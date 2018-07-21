@@ -34,19 +34,19 @@
                             <div class="col-xs-3">
                                 <label>服务器类型:</label>
 
-                                <select class="form-control" id="deploy">
+                                <select class="form-control" id="server_type">
                                     <option value="1" >
                                         虚拟机
                                     </option>
-                                    <option value="2">物理机</option>
+                                    <option value="2" selected="selected">物理机</option>
                                 </select>
                                 <hr>
                             </div>
 .
                             <div class="col-xs-2">
                                 <label>部署状态:</label>
-                                <select class="form-control" id="isAlive">
-                                      <option value="4" >
+                                <select class="form-control" id="deploy">
+                                      <option value="4"  selected="selected">
                                         在线
                                     </option>
                                     <option value="5">库存</option>
@@ -58,17 +58,17 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <label>服务器名称</label>
-                                <input type="text" class="form-control" name="server_name" value="必填" id="server_name" />
+                                <input type="text" class="form-control" name="server_name" value="" id="server_name" placeholder="必填"/>
                             </div>
 
                             <div class="col-xs-3">
                                 <label>服务器操作系统</label>
-                                <input type="text" class="form-control" name="server_os" value="必填" id="server_os" />
+                                <input type="text" class="form-control" name="server_os" value="" id="server_os" placeholder="必填"/>
                             </div>
 
                             <div class="col-xs-5">
                                 <label>服务器运行服务</label>
-                                <textarea class="form-control" rows="3" id="service" style="resize:none" >必填</textarea>
+                                <textarea class="form-control" rows="3" id="service" style="resize:none" placeholder="必填" ></textarea>
                                 <hr>
                             </div>
 
@@ -76,12 +76,12 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <label>局域网ip地址</label>
-                                <input type="text" class="form-control" name="local_ip" value="必填" id="local_ip" />
+                                <input type="text" class="form-control" name="local_ip" value="" id="local_ip" placeholder="必填"/>
 
                             </div>
                             <div class="col-xs-7">
                                 <label>局域网开放端口</label>
-                                <textarea class="form-control" rows="2" id="local_port" style="resize:none" >必填</textarea>
+                                <textarea class="form-control" rows="2" id="local_port" style="resize:none" placeholder="必填"></textarea>
                                 <hr>
                             </div>
 
@@ -90,11 +90,11 @@
                         <div class="row">
                              <div class="col-xs-3">
                                 <label>公网ip地址</label>
-                                <input type="text" class="form-control" name="global_ip" value="选填" id="global_ip" />
+                                <input type="text" class="form-control" name="global_ip" value="" id="global_ip" placeholder="选填"/>
                             </div>
                             <div class="col-xs-7">
                                 <label>公网开放端口</label>
-                                <textarea class="form-control" rows="2" id="global_port" style="resize:none" >选填</textarea>
+                                <textarea class="form-control" rows="2" id="global_port" style="resize:none" placeholder="选填"></textarea>
                                 <hr>
                             </div>
                         </div>
@@ -102,18 +102,18 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <label>服务器主机配置</label>
-                                <textarea class="form-control" rows="3" id="configuration" style="resize:none" >必填</textarea>
+                                <textarea class="form-control" rows="3" id="configuration" style="resize:none" placeholder="必填" value=""></textarea>
                                 <hr>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-3">
                                 <label>网卡mac地址</label>
-                                <input type="text" class="form-control" name="eht1_mac" value="必填" id="eth1_mac" />
+                                <input type="text" class="form-control" name="eht1_mac" value="" id="eth1_mac" placeholder="必填"/>
                             </div>
                              <div class="col-xs-3">
                                 <label>网卡mac地址</label>
-                                <input type="text" class="form-control" name="eht2_mac" value="选填" id="eth2_mac" />
+                                <input type="text" class="form-control" name="eht2_mac" value="" id="eth2_mac" placeholder="选填"/>
                             </div>
 
 
@@ -121,45 +121,46 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <label>服务器负责人</label>
-                                <input type="text" class="form-control" name="maintainer" value="必填" id="manager" />
+                                <input type="text" class="form-control" name="maintainer" value="" id="manager" placeholder="必填"/>
                             </div>
 
                             <div class="col-xs-3">
                                 <label>负责人电话</label>
-                                <input type="text" class="form-control" name="manager_phone" value="必填" id="manager_phone" />
+                                <input type="text" class="form-control" name="manager_phone" value="" id="manager_phone" placeholder="必填"/>
                             </div>
 
                             <div class="col-xs-3">
                                 <label>负责人邮箱</label>
-                                <input type="text" class="form-control" name="manager_email" value="必填" id="manager_email" />
+                                <input type="text" class="form-control" name="manager_email" value="" id="manager_email" placeholder="必填"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-3">
                                 <label>服务器运维</label>
-                                <input type="text" class="form-control" name="maintainer" value="选填" id="maintainer" />
+                                <input type="text" class="form-control" name="maintainer" value="" id="maintainer" placeholder="选填"/>
                             </div>
 
                             <div class="col-xs-3">
                                 <label>运维人员电话</label>
-                                <input type="text" class="form-control" name="maintainer_phone" value="选填" id="mmaintainer_phone" />
+                                <input type="text" class="form-control" name="maintainer_phone" value="" id="maintainer_phone" placeholder="选填"/>
                             </div>
 
                             <div class="col-xs-3">
-                                <label>负责人邮箱</label>
-                                <input type="text" class="form-control" name="maintainer_email" value="选填" id="maintainer_email" />
+                                <label>运维人员邮箱</label>
+                                <input type="text" class="form-control" name="maintainer_email" value="" id="maintainer_email" placeholder="选填"/>
                             </div>
                         </div>
                         <div class="row">
                              <div class="col-xs-11">
                                  <hr>
                                 <label>备注</label>
-                                <textarea class="form-control" rows="3" id="desc" style="resize:none">选填</textarea>
+                                <textarea class="form-control" rows="3" id="desc" style="resize:none" placeholder="选填"></textarea>
                             </div>
 
                             <div class="col-xs-12">
-                                <button class="btn btn-info pull-right btn-sm" id="port_scan_config">提交更新</button>
+                                <button class="btn btn-info pull-right btn-sm" id="update">提交更新</button>
                             </div>
+
                         </div>
                     </div>
                 <!-- /.box-body -->
@@ -233,96 +234,58 @@
 
     jQuery(function($) {
 
-        $('#db_management').click(function () {
-            const collections_name = $('#collections_name').val();
-            const db_command = $('#db_command').val();
-            const object_id = $('#object_id').val();
+        $('#update').click(function () {
+            const server_type = $('#server_type').val();
+            const server_name = $('#server_name').val();
+            const deployment_type = $('#deploy').val();
+            const service = $('#service').val();
+            const local_ip = $('#local_ip').val();
+            const local_port = $('#local_port').val();
+            const global_ip = $('#global_ip').val();
+            const global_port = $('#global_port').val();
+            const eth1_mac = $('#eth1_mac').val();
+            const eth2_mac = $('#eth2_mac').val();
+            const manager = $('#manager').val();
+            const manager_phone = $('#manager_phone').val();
+            const manager_email = $('#manager_email').val();
+            const maintainer = $('#maintainer').val();
+            const maintainer_phone = $('#maintainer_phone').val();
+            const maintainer_email = $('#maintainer_email').val();
+            const configuration = $('#configuration').val();
+            const server_os = $('#server_os').val();
+            const desc = $('#desc').val();
             const data = {
-                "collections_name": collections_name,
-                "db_command": db_command,
-                "object_id": object_id,
+                "server_type": server_type,
+                "server_name": server_name,
+                "deployment_type": deployment_type,
+                "service":service,
+                "local_ip":local_ip,
+                "local_port":local_port,
+                "global_ip":global_ip,
+                "global_port":global_port,
+                "eth1_mac":eth1_mac,
+                "eth2_mac":eth2_mac,
+                "manager":manager,
+                "manager_phone":manager_phone,
+                "manager_email":manager_email,
+                "maintainer":maintainer,
+                "maintainer_phone":maintainer_phone,
+                "maintainer_email":maintainer_email,
+                "desc":desc,
             };
             $.ajax({
                 type: 'POST',
-                url: '/dev-tools',
+                url: '/add',
                 dataType: 'json',
                 data: data,
 
                 success: function (data) {
                     const result_json = eval(data);
                     const result = result_json.result;
-                    $('#db_result').val(result);
+                    alert("更新成功");
                 },
                 error: function (xhr, type) {
-                }
-            });
-        });
-
-        $('#port_scan_config').click(function () {
-            const scan_port = $('#scan_port').val();
-            const port_thread = $('#port_thread').val();
-            const data = {
-                "source": 'port_scan',
-                "scan_port": scan_port,
-                "port_thread": port_thread,
-            };
-            $.ajax({
-                type: 'POST',
-                url: '/config-change',
-                dataType: 'json',
-                data: data,
-                success: function () {
-                    alert('修改成功!');
-                    location.href = "/setting";
-                },
-                error: function () {
-                    alert('修改失败!');
-                }
-            });
-        });
-
-        {#扫描配置#}
-        $('#scanner_config').click(function () {
-            const scanner_time = $('#scanner_time').val();
-            const scanner_thread = $('#scanner_thread').val();
-            const data = {
-                "source": 'scanner_config',
-                "scanner_thread": scanner_thread,
-                "scanner_time": scanner_time,
-            };
-            $.ajax({
-                type: 'POST',
-                url: '/config-change',
-                dataType: 'json',
-                data: data,
-                success: function () {
-                    alert('修改成功!');
-                    location.href = "/setting";
-                },
-                error: function () {
-                    alert('修改失败!');
-                }
-            });
-        });
-
-        {#子域名设置#}
-        $('#subdomain_config').click(function () {
-            const subdomain_dict = $('#subdomain_dict').val();
-            const data = {
-                "source": 'subdomain_scan',
-                "subdomain_dict": subdomain_dict,
-            };
-            $.ajax({
-                type: 'POST',
-                url: '/config-change',
-                dataType: 'json',
-                data: data,
-                success: function () {
-                    alert('修改成功!');
-                    location.href = "/setting";
-                },
-                error: function () {
-                    alert('修改失败!');
+                    alert("添加失败");
                 }
             });
         });
