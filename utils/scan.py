@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # __Author__:cmustard
 
-import subprocess
-
 import nmap
-from .model import *
+import subprocess
+import tempfile
 
 class Nmap(object):
     '''nmap scan'''

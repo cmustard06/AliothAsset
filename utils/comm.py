@@ -7,7 +7,7 @@ commom function
 import logging
 
 
-from config import LOGFILE,LOGLEVEL
+from utils.config import LOGFILE,LOGLEVEL
 
 
 LOGMAP = {"debug":logging.DEBUG,"warning":logging.WARNING,"warn":logging.WARN,"error":logging.ERROR}

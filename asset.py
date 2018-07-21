@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # __Author__:cmustard
 
-from mvc import app
+from mvc import mvc_run
 
 
 def run():
-	app.start()
+	mvc_run.start()
 	
 if __name__ == '__main__':
     run()

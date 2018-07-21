@@ -44,14 +44,14 @@ body {
 <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
 <table class='v_table'>
     <tr>
-        <td class="v_head" style="width:175px;">创建时间</td>
-        <td class='v_head' style='width:175px;'>更新时间</td>
+        <td class="v_head" style="width:160px;">创建时间</td>
+        <td class='v_head' style='width:160px;'>更新时间</td>
         <td class='v_head' style='width:100px;'>局域网ip</td>
-        <td class='v_head' style='width:250px;'>局域网开放端口</td>
-        <td class='v_head' style='width:450px;'>开放服务</td>
+        <td class='v_head' style='width:200px;'>局域网开放端口</td>
+        <td class='v_head' style='width:320px;'>开放服务</td>
         <td class='v_head' style='width:100px;'>公网ip</td>
-        <td class='v_head' style='width:250px;'>公网开放端口</td>
-        <td class='v_head' style='width:75px;'>服务器状态</td>
+        <td class='v_head' style='width:200px;'>公网开放端口</td>
+        <td class='v_head' style='width:50px;'>服务器状态</td>
         <td class='v_head'>详情</td>
     </tr>
     {% for item in items %}
@@ -64,7 +64,11 @@ body {
         <td class='v_td1'>{{item.global_ip}}</td>
         <td class='v_td1'>{{item.global_port}}</td>
         <td class='v_td1'>
-            {{item.status}}
+            {%if item.status %}}
+            Online
+            {%else%}
+            Offline
+            {%endif%}
         </td>
         <td class='v_td1'><a target=_blank
                              onclick="if(window.goToUrl){return goToUrl(this.href,'get');}else{return true;}"
