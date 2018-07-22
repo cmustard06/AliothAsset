@@ -36,7 +36,7 @@ class Masscan(object):
 
     def __exec_path(self):
         if sys.platform == 'win32':
-            paths = ["ext/masscan.exe","../ext/masscan.exe"]
+            paths = ["ext/windows/masscan.exe","../ext/windows/masscan.exe"]
             for path in paths:
                 self.exec_path = os.path.join(os.getcwd(),path)
                 if os.path.exists(self.exec_path):
