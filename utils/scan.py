@@ -72,6 +72,11 @@ class Masscan(object):
             data = temp_file.read().decode("utf-8")
             print(data)
             print(json.loads(data))
+
+            """
+            code
+            """
+
             temp_file.close()
             end_time = time.time()
             speed_time = end_time-start_time
