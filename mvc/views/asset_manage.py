@@ -7,6 +7,7 @@ from flask import render_template, Blueprint, render_template_string, request, u
 from mvc import db
 from mvc.model.model import Record
 from utils import comm
+from utils.icmp import ICMP
 
 manage = Blueprint("manage", __name__, template_folder="templates", static_folder="static", static_url_path="")
 logger = comm.get_logger()
@@ -49,7 +50,7 @@ def index():
             return redirect(url_for("/404"))
     except Exception as e:
         logger.error(str(e))
-        return redirect(url_for("/404"))
+        return redirect("/404")
 
 
 @manage.route("/add",methods=['GET','POST'])
@@ -102,9 +103,24 @@ def asset_add():
         desc = data["desc"]
         if desc == "":
             desc = None
-
+        server_os = data["server_os"]
+        configuration = data['configuration']
+        if configuration == "":
+            configuration = None
+            
+        # icmp
+        icmp = ICMP()
+        isAlive=icmp.ping(local_ip)
         # 数据库
-        pass
-        print(data)
-
+        first_time = datetime.datetime.now()
+        db.session.add(Record(server_type=server_type,first_time=first_time,update_time=first_time,deployment_type=deployment_type,
+                              server_name=server_name,server_os=server_os,service=service,local_ip=local_ip,local_port=local_port,
+                              global_ip=global_ip,global_port=global_port,configuration=configuration,eth1_mac=eth1_mac,
+                              eth2_mac=eth2_mac,isAlive=isAlive,manager=manager,manager_phone=manager_phone,manager_email=manager_email,
+                              maintainer=maintainer,maintainer_email=maintainer_email,maintainer_phone=maintainer_phone))
+        db.session.commit()
         return jsonify({"success":"success"})
+    
+@manage.route("/update",methods=['GET',"POST"])
+def asset_update():
+    pass
