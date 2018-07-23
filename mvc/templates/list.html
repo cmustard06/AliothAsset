@@ -64,7 +64,7 @@ body {
         <td class='v_td1'>{{item.global_ip}}</td>
         <td class='v_td1'>{{item.global_port}}</td>
         <td class='v_td1'>
-            {%if item.status %}}
+            {%if item.isAlive %}
             Online
             {%else%}
             Offline
