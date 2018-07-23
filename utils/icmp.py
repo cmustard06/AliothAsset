@@ -21,7 +21,7 @@ import array
 import time
 import socket
 
-from comm import *
+from utils.comm import *
 
 logger = get_logger()
 
