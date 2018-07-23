@@ -212,6 +212,8 @@
                 "maintainer_phone":maintainer_phone,
                 "maintainer_email":maintainer_email,
                 "desc":desc,
+                "server_os":server_os,
+                "configuration":configuration,
             };
             $.ajax({
                 type: 'POST',
@@ -223,9 +225,11 @@
                     const result_json = eval(data);
                     const result = result_json.result;
                     alert("更新成功");
+                    window.location.href="/";
                 },
                 error: function (xhr, type) {
                     alert("添加失败");
+
                 }
             });
         });
