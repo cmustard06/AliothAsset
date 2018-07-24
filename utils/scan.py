@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # __Author__:cmustard
 
-import nmap
 import subprocess
 import sys
 import os
 import time
 import json
 import datetime
-import xml.etree.ElementTree as ET
+import nmap
 
 
 from tempfile import NamedTemporaryFile
