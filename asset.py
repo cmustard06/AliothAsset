@@ -8,5 +8,5 @@ def run():
 	mvc_run.start()
 	
 if __name__ == '__main__':
-    # run()
-    scan.Masscan().scan()
+    run()
+    # scan.Masscan().scan()
