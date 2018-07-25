@@ -39,10 +39,7 @@
                             <div class="col-xs-2">
                                 <label>扫描策略:</label>
                                 <select class="form-control" id="policy">
-                                      <option value="1"  selected="selected">
-                                        icmp发现
-                                    </option>
-                                    <option value="2">masscan扫描</option>
+                                    <option value="2">masscan扫描</option selected="selected">
                                     <option value="3">nmap+masscan扫描</option>
                                     <option value="7">nmap扫描(耗时)</option>
                                 </select>
@@ -88,7 +85,7 @@
             };
             $.ajax({
                 type: 'POST',
-                url: '/discover',
+                url: '/add_task',
                 dataType: 'json',
                 data: data,
 

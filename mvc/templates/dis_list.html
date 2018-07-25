@@ -56,10 +56,18 @@ body {
     </tr>
     {% for item in items %}
     <tr>
-        <td class="v_td1">{{ item.create_time }}</td>
+        <td class="v_td1">{{ item.dis_time }}</td>
         <td class='v_td1'>{{item.ip}}</td>
-        <td class='v_td1'>{{item.port}}</td>
-        <td class='v_td1'>{{item.desc}}</td>
+        <td class='v_td1'>{{item.scan_port}}</td>
+{#        <td class='v_td1'>{% if item.nmap_result != None %}#}
+{#            {{ item.nmap_result }}#}
+{#            {% elif item.masscan_result !=None %}#}
+{#            {{ item.masscan_result }}#}
+{#            {% else %}#}
+{#            {{ item.icmp_result }}#}
+{#        {% endif%}</td>#}
+        <td class='v_td1'><textarea style="margin: 0px; width: 549px;">{{item.service}}</textarea></td>
+
     </tr>
     {% endfor %}
 </table>

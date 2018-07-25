@@ -38,7 +38,7 @@ class Masscan(object):
 
     def __exec_path(self):
         if sys.platform == 'win32':
-            paths = ["ext/windows/masscan.exe","../ext/windows/masscan.exe"]
+            paths = ["ext/windows/masscan.exe","../ext/windows/masscan.exe","../../ext/windows/masscan.exe"]
             for path in paths:
                 self.exec_path = os.path.join(os.getcwd(),path)
                 if os.path.exists(self.exec_path):
@@ -119,7 +119,7 @@ class Masscan(object):
         except Exception as e:
             print(e)
             logger.debug(str(e))
-            data = ""
+            result_dict = {}
             temp_file.close()
         return result_dict
 
