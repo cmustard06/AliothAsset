@@ -71,6 +71,7 @@ class Masscan(object):
             data_jsons = json.loads(raw_data)
             dict_json['info'] = ""
             dict_json['banner'] = ""
+            dict_json['open'] = set()
             for data_json in data_jsons:
                 dict_json['time'] = datetime.datetime.fromtimestamp(int(data_json['timestamp']))
 
@@ -79,8 +80,9 @@ class Masscan(object):
                     if item.get("service"):
                         dict_json["banner"] += u"名称->{}\t 签名->{}\n".format(item['service']['name'],item['service']['banner'])
                     else:
-                        dict_json['info'] += u"端口->{}\t 协议->{}\t 状态->{}\n".format(item['port'], item['proto'],
+                        dict_json['info'] += u"端口->{}\t 协议->{}\t 状态->{}\n".format(item.get('port'), item.get('proto'),
                                                                                  item.get("status"))
+                        dict_json['open'].add(item.get("port"))
 
         except Exception as e:
             logger.critical(str(e))
@@ -119,7 +121,7 @@ class Masscan(object):
             logger.debug(str(e))
             data = ""
             temp_file.close()
-        return data
+        return result_dict
 
     def test(self):
         print(self.__json_parser(jsonpath="1.xml"))

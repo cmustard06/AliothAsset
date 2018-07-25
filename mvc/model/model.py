@@ -44,6 +44,7 @@ class Discover(db.Model):
 	ip = db.Column(db.String(128),nullable=False,unique=True)
 	service = db.Column(db.Text,nullable=False,default="None")
 	scan_policy = db.Column(db.String(32),default="icmp")
+	scan_status = db.Column(db.String(32),default="None")
 	config_port = db.Column(db.Text,default="21,22,23,25,31,42,53,67,69,79,80,99,102,109,110,113,119,135,137,138,139,143,161,177,389,443,456,513,993,1024,1080,1433,1999,3389,3306,8000,8080,13223,88,137,161,162,445,500")
 	nmap_result = db.Column(db.Text,nullable=True,default=None)
 	masscan_result = db.Column(db.Text,nullable=True,default=None)

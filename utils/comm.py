@@ -23,6 +23,8 @@ def get_logger():
 	logger.addHandler(file_handler)
 	return logger
 
+
+
 if __name__ == '__main__':
     logger = get_logger()
     logger.warn("test!!!")

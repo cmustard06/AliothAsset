@@ -33,7 +33,7 @@ def display_detail():
         return redirect(url_for(".index"))
 
 
-@manage.route("/")
+
 @manage.route("/list", methods=['GET', ])
 def index():
     test = [{"first_time": datetime.datetime.ctime(datetime.datetime.now()),

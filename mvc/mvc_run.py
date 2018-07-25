@@ -5,9 +5,9 @@
 from random import sample
 from string import  digits,ascii_lowercase
 
-from flask import render_template
+from flask import render_template,redirect,url_for
 
-from .views.asset_manage import manage
+from .views.asset_manage import manage,index
 from .views.discover import discover
 from mvc import app
 
@@ -27,6 +27,10 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
 	return render_template("404.html"),500
+
+@app.route("/")
+def main_page():
+	return redirect("/list")
 
 def start():
 	app.run("0.0.0.0",port=8080,debug=True)
