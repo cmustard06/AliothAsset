@@ -4,7 +4,7 @@
 import json
 import threading
 import datetime
-from flask import render_template, Blueprint,render_template_string,request,jsonify
+from flask import render_template, Blueprint,redirect,request,jsonify
 from mvc import db
 from mvc.model.model import Discover
 from utils.scan import Masscan
@@ -38,11 +38,12 @@ def _discover():
 			if policy == 'masscan':
 				th = threading.Thread(target=masscan, args=(target_ip,))
 				th.start()
-		
-		
+
 		return jsonify({"success":"success"})
 	elif request.method == 'GET':
 		return render_template("discover.html")
+	else:
+		redirect("/404",404)
 
 @discover.route("/discover",methods=['GET'])
 def _discover_list():
