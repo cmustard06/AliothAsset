@@ -107,12 +107,6 @@ class Masscan(object):
             data = temp_file.read().decode("utf-8")
             result_dict = self.__json_parser(content=data)
             temp_file.close()
-            if result_dict is not None:
-                with open("1.json","w") as f:
-                    f.write(result_dict['info'])
-                    f.write(result_dict['banner'])
-            else:
-                pass
             end_time = time.time()
             speed_time = end_time-start_time
             print("speed time %ss"% speed_time)

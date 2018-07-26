@@ -4,16 +4,16 @@
 
 import threading
 import datetime
-from flask import render_template, Blueprint,redirect,request,jsonify
+from flask import render_template, Blueprint,redirect,request,jsonify,url_for
 from mvc import db
 from mvc.model.model import Discover
 from utils.scan import Masscan
-
+from utils.comm import *
 
 discover = Blueprint("discover", __name__, template_folder="templates", static_folder="static")
 
 
-
+logger = get_logger()
 
 @discover.route("/add_task",methods=['POST','GET'])
 def _discover():
@@ -50,7 +50,22 @@ def _discover_list():
 	if request.method == 'GET':
 		items = db.session.query(Discover).all()
 		return render_template("dis_list.html",items=items)
-	
+
+@discover.route("/delete", methods=['POST',])
+def delete_task():
+    if request.method == 'POST':
+        try:
+            _id = request.form['delete_id']
+            select = Discover.query.filter_by(id=_id).first()
+            db.session.delete(select)
+            db.session.commit()
+            return jsonify({"success":"success"})
+        except Exception as e:
+            print(e)
+            logger.warn(str(e))
+            return jsonify({"error":"error"})
+    else:
+        return redirect(url_for("_discover_list"))
 	
 def masscan(host):
 	temp_1 = Discover.query.filter(Discover.ip == host).first()

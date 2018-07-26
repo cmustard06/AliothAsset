@@ -50,15 +50,16 @@ body {
 <table class='v_table'>
     <tr>
         <td class="v_head" style="width:160px;">创建时间</td>
-        <td class='v_head' style='width:100px;'>ip</td>
+        <td class='v_head' style='width:120px;'>ip</td>
         <td class='v_head' style='width:200px;'>开放端口</td>
-        <td class='v_head'>详情</td>
+        <td class='v_head' style='width:400px;'>详情</td>
+        <td class="v_head">扫描状态</td>
+        <td class="v_head">删除</td>
     </tr>
     {% for item in items %}
     <tr>
         <td class="v_td1">{{ item.dis_time }}</td>
         <td class='v_td1'>{{item.ip}}</td>
-        <td class='v_td1'>{{item.scan_port}}</td>
 {#        <td class='v_td1'>{% if item.nmap_result != None %}#}
 {#            {{ item.nmap_result }}#}
 {#            {% elif item.masscan_result !=None %}#}
@@ -66,7 +67,10 @@ body {
 {#            {% else %}#}
 {#            {{ item.icmp_result }}#}
 {#        {% endif%}</td>#}
-        <td class='v_td1'><textarea style="margin: 0px; width: 549px;">{{item.service}}</textarea></td>
+        <td class='v_td1'><textarea  style=" width:100%;overflow:auto;word-break:break-all;resize: none;" rows="4">{{item.scan_port}}</textarea></td>
+        <td class='v_td1'><textarea  style=" width:100%;overflow:auto;word-break:break-all;resize: none;" rows="4">{{item.service}}</textarea></td>
+        <td class='v_td1'>{{item.scan_status}}</td>
+        <td class="v_td1"><button class="btn btn-info pull-right btn-sm" id="delete" name="delete" value="{{ item.id }}">删除</button></td>
 
     </tr>
     {% endfor %}
@@ -82,6 +86,37 @@ window.open("/add_task");
 return true;
 }
 }
+</script>
+    <script>
+ jQuery(function($) {
+
+        $('#delete').click(function () {
+            const delete_id = $('#delete').val();
+
+            const data = {
+                "delete_id": delete_id,
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/delete',
+                dataType: 'json',
+                data: data,
+
+                success: function (data) {
+                    {#const result_json = eval(data);#}
+                    {#const result = result_json.result;#}
+                    {#$('#db_result').val(result);#}
+                    alert("任务删除成功")
+                    window.location.reload();
+                },
+                error: function (xhr, type) {
+                    alert("任务删除失败")
+
+                }
+            });
+        });
+
+    });
 </script>
 {% endblock %}
 
