@@ -7,7 +7,7 @@ import datetime
 from flask import render_template, Blueprint,redirect,request,jsonify,url_for
 from mvc import db
 from mvc.model.model import Discover
-from utils.scan import Masscan
+from utils.scan import Masscan,Nmap
 from utils.comm import *
 
 discover = Blueprint("discover", __name__, template_folder="templates", static_folder="static")
@@ -31,13 +31,14 @@ def _discover():
 			# 存储数据库中
 			db.session.add(Discover(dis_time=datetime.datetime.now(),ip=target_ip,scan_policy=policy))
 			db.session.commit()
-			if policy == "masscan":
-				th = threading.Thread(target=masscan,args=(target_ip,))
-				th.start()
+			th = threading.Thread(target=scan,args=(target_ip,policy))
+			th.start()
 		else:
-			if policy == 'masscan':
-				th = threading.Thread(target=masscan, args=(target_ip,))
-				th.start()
+
+			th = threading.Thread(target=scan, args=(target_ip,policy))
+			th.start()
+
+
 
 		return jsonify({"success":"success"})
 	elif request.method == 'GET':
@@ -67,25 +68,40 @@ def delete_task():
     else:
         return redirect(url_for("_discover_list"))
 	
-def masscan(host):
+def scan(host,scanmode="masscan"):
 	temp_1 = Discover.query.filter(Discover.ip == host).first()
 	temp_1.scan_status = "RUNNING"
 	ports = temp_1.config_port
 	db.session.add(temp_1)
 	db.session.commit()
-	res = Masscan().scan("-p{}".format(ports),host)
-	info = res.get('info')
-	port = res.get('open')
-	banner = res.get("banner")
-	print(info,port,banner)
+	info = None
+	banner = None
+	port = []
+	if scanmode =="masscan":
+		res = Masscan().scan("-p{}".format(ports),host)
+		info = res.get('info')
+		port = res.get('open')
+		banner = res.get("banner")
+		print(info,port,banner)
+	elif scanmode == "nmap":
+		res = Nmap().scan(host,ports)
+		info = res.get("info")
+		port = res.get("port")
+		banner = res.get("service")
 	# 数据库更新
 	result = Discover.query.filter(Discover.ip==host).first()
 	result.masscan_result = info
 	result.service  = banner
-	result.scan_port = ",".join([str(x) for x in list(port)])
+	try:
+		result.scan_port = ",".join([str(x) for x in list(port)])
+	except Exception as e:
+		result.scan_port = None
 	result.scan_status = "FINISH"
 	db.session.add(result)
 	db.session.commit()
+
+
+
 
 if __name__ == '__main__':
     masscan("192.168.199.1")

@@ -23,7 +23,60 @@ class Nmap(object):
 
     def scan(self,host,ports):
         nm = nmap.PortScanner()
-        result = nm.scan(hosts=host,ports=ports,arguments="-sS",sudo=True)["scan"]
+        result = nm.scan(hosts=host,ports=ports,arguments="-sS",sudo=False)["scan"]
+        #result = {'192.168.199.1': {'hostnames': [{'name': 'Hiwifi.lan', 'type': 'PTR'}], 'addresses': {'ipv4': '192.168.199.1', 'mac': 'D4:EE:07:58:D8:C2'}, 'vendor': {'D4:EE:07:58:D8:C2': 'Hiwifi'}, 'status': {'state': 'up', 'reason': 'arp-response'}, 'tcp': {21: {'state': 'open', 'reason': 'syn-ack', 'name': 'ftp', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 53: {'state': 'open', 'reason': 'syn-ack', 'name': 'domain', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 80: {'state': 'open', 'reason': 'syn-ack', 'name': 'http', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 81: {'state': 'open', 'reason': 'syn-ack', 'name': 'hosts2-ns', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 82: {'state': 'open', 'reason': 'syn-ack', 'name': 'xfer', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 83: {'state': 'open', 'reason': 'syn-ack', 'name': 'mit-ml-dev', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 139: {'state': 'open', 'reason': 'syn-ack', 'name': 'netbios-ssn', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 443: {'state': 'open', 'reason': 'syn-ack', 'name': 'https', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 445: {'state': 'open', 'reason': 'syn-ack', 'name': 'microsoft-ds', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}}}}
+        result = result[host]
+        hostnames = ""
+        for hostname in result['hostnames']:
+            hostnames += "name->{}\t\t type->{}\t\t\n".format(hostname["name"],hostname['type'])
+
+        address= ""
+        addresses = result['addresses']
+        if addresses.get("ipv4") is not None:
+            address = "ip->{}\t\t mac->{}\t\t\n".format(addresses['ipv4'],addresses['mac'])
+        status = "hoststatus->{}\n".format(result["status"]['state'])
+
+        ports = []
+        try:
+            tcp_ports = []
+            tcp_ports = list(result.get("tcp").keys())
+            ports.extend(tcp_ports)
+        except AttributeError as e:
+            pass
+        try:
+            udp_ports = []
+            udp_ports= list(result.get('udp').keys())
+            ports.extend(udp_ports)
+        except AttributeError as e:
+            pass
+
+
+
+
+        #  83: {'state': 'open', 'reason': 'syn-ack', 'name': 'mit-ml-dev', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}
+        services = "TCP:\n"
+        if len(tcp_ports)>0:
+            for t_port in tcp_ports:
+                services += "port->{}\n\tstate->{}\n\tname->{}\n\tproduct->{}\n\tversion->{}\n\textrainfo->{}\n\tconf->{}\n\tcpe->{}\n{}\n".format(
+                    str(t_port), result.get("tcp")[t_port]['state'],result.get("tcp")[t_port]['name'],result.get("tcp")[t_port]['product'],result.get("tcp")[t_port]['version'],
+                    result.get("tcp")[t_port]['extrainfo'],result.get("tcp")[t_port]['conf'],result.get("tcp")[t_port]['cpe'],'*'*50
+                )
+        services += "UDP:\n"
+        if len(udp_ports)>0:
+            for u_port in udp_ports:
+                services += "port->{}\n\tstate->{}\n\tname->{}\n\tproduct->{}\n\tversion->{}\n\textrainfo->{}\n\tconf->{}\n\tcpe->{}\n{}\n".format(
+                    str(u_port),result.get("tcp")[u_port]['state'], result.get("tcp")[u_port]['name'],
+                    result.get("tcp")[u_port]['product'], result.get("tcp")[u_port]['version'],
+                    result.get("tcp")[u_port]['extrainfo'], result.get("tcp")[u_port]['conf'],
+                    result.get("tcp")[u_port]['cpe'],"*"*50
+                )
+
+        info = "{}\n{}\n{}\n{}\n".format(hostnames,address,status,services)
+        services = "{}\n".format(services)
+        result['info'] = info # scan result
+        result['service'] = services # service info
+        result["port"] = ports  # port info
+        print(result)
         return result
 
 
@@ -121,8 +174,8 @@ class Masscan(object):
         print(self.__json_parser(jsonpath="1.xml"))
 
 if __name__ == '__main__':
-    # n = Nmap()
-    # n.scan("192.168.199.1","80,443,22")
-    m = Masscan()
-    m.scan("-p1-1080","--rate", "10000","39.106.160.62")
-    # m.test()
+    n = Nmap()
+    n.scan("192.168.199.1","1-1080")
+    # m = Masscan()
+    # m.scan("-p1-1080","--rate", "10000","39.106.160.62")
+    # # m.test()
