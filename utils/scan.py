@@ -151,7 +151,7 @@ class Masscan(object):
         return dict_json
 
     def scan(self,*args):
-        temp_file = NamedTemporaryFile(delete=True,suffix=".xml")
+        temp_file = NamedTemporaryFile(delete=True,suffix=".json")
         print(temp_file.name)
         # exit(1)
         try:
@@ -189,8 +189,8 @@ class Masscan(object):
         print(self.__json_parser(jsonpath="1.xml"))
 
 if __name__ == '__main__':
-    n = Nmap()
-    n.scan("192.168.199.1","1-1080")
-    # m = Masscan()
-    # print(m.scan("-p1-1080","--rate", "1000","192.168.199.1"))
+    # n = Nmap()
+    # n.scan("192.168.199.1","1-1080")
+    m = Masscan()
+    print(m.scan("-p1-1080","192.168.199.1"))
     # # # m.test()
