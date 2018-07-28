@@ -3,6 +3,7 @@
 
 
 import datetime
+import pymysql
 from flask import render_template, Blueprint, render_template_string, request, url_for, redirect,jsonify
 from mvc import db
 from mvc.model.model import Record
@@ -48,6 +49,9 @@ def index():
 
         else:
             return redirect(url_for("/404"))
+    except pymysql.Error as e:
+        logger.error(str(e))
+        print(str(e))
     except Exception as e:
         logger.error(str(e))
         return redirect("/404")
