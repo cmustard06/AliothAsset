@@ -28,7 +28,14 @@ class Nmap(object):
         #result = {'192.168.199.1': {'hostnames': [{'name': 'Hiwifi.lan', 'type': 'PTR'}], 'addresses': {'ipv4': '192.168.199.1', 'mac': 'D4:EE:07:58:D8:C2'}, 'vendor': {'D4:EE:07:58:D8:C2': 'Hiwifi'}, 'status': {'state': 'up', 'reason': 'arp-response'}, 'tcp': {21: {'state': 'open', 'reason': 'syn-ack', 'name': 'ftp', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 53: {'state': 'open', 'reason': 'syn-ack', 'name': 'domain', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 80: {'state': 'open', 'reason': 'syn-ack', 'name': 'http', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 81: {'state': 'open', 'reason': 'syn-ack', 'name': 'hosts2-ns', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 82: {'state': 'open', 'reason': 'syn-ack', 'name': 'xfer', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 83: {'state': 'open', 'reason': 'syn-ack', 'name': 'mit-ml-dev', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 139: {'state': 'open', 'reason': 'syn-ack', 'name': 'netbios-ssn', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 443: {'state': 'open', 'reason': 'syn-ack', 'name': 'https', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}, 445: {'state': 'open', 'reason': 'syn-ack', 'name': 'microsoft-ds', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}}}}
         elif sys.platform == "linux":
             result = nm.scan(hosts=host, ports=ports, arguments="-sS", sudo=True)["scan"]
-        result = result[host]
+        else:
+            logger.critical("Not support the platform!!!")
+            print("Not support the platform!!!")
+        try:
+            result = result[host]
+        except Exception as e:
+            logger.error(str(e))
+            return {}
         hostnames = ""
         for hostname in result['hostnames']:
             hostnames += "name->{}\t\t type->{}\t\t\n".format(hostname["name"],hostname['type'])
@@ -52,9 +59,6 @@ class Nmap(object):
             ports.extend(udp_ports)
         except AttributeError as e:
             pass
-
-
-
 
         #  83: {'state': 'open', 'reason': 'syn-ack', 'name': 'mit-ml-dev', 'product': '', 'version': '', 'extrainfo': '', 'conf': '3', 'cpe': ''}
         services = "TCP:\n"
