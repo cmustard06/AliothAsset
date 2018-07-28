@@ -92,21 +92,22 @@ class Masscan(object):
     def __exec_path(self):
         if sys.platform == 'win32':
             paths = ["ext/windows/masscan.exe","../ext/windows/masscan.exe","../../ext/windows/masscan.exe"]
-            for path in paths:
-                self.exec_path = os.path.join(os.getcwd(),path)
-                if os.path.exists(self.exec_path):
-                    break
-                else:
-                    continue
-            else:
-                raise os.error("execute file path is not right")
-        elif sys.platform == 'linux':
-            # 暂时还未写
-            paths = []
-            pass
+        elif sys.platform == "linux":
+            paths = ["ext/linux/masscan", "../ext/linux/masscan", "../../ext/linux/masscan","masscan"]
         else:
             logger.critical("Not support the platform!!!")
             self.exec_path = None
+
+        for path in paths:
+            self.exec_path = os.path.join(os.getcwd(),path)
+            if os.path.exists(self.exec_path):
+                break
+            else:
+                continue
+        else:
+            raise os.error("execute file path is not right")
+
+
 
     def __json_parser(self,**kwargs):
         dict_json = {}
@@ -148,7 +149,13 @@ class Masscan(object):
         # exit(1)
         try:
             start_time = time.time()
-            exec_args = [self.exec_path,"-oJ", temp_file.name,"--banners"]
+            if sys.platform == 'win32':
+                exec_args = [self.exec_path,"-oJ", temp_file.name,"-sS","-Pn", "--banners"]
+            elif sys.platform =="linux":
+                exec_args = [self.exec_path,"-oJ", temp_file.name,"-sS","-Pn", "--banners"]
+            else:
+                logger.critical("Not support the platform!!!")
+                print("Not support the platform!!!")
             exec_args.extend(args)
             result = subprocess.check_call(exec_args)
             if result == 0:
@@ -158,6 +165,7 @@ class Masscan(object):
             print(result)
             # 需要处理
             data = temp_file.read().decode("utf-8")
+            print(data)
             result_dict = self.__json_parser(content=data)
             temp_file.close()
             end_time = time.time()
@@ -174,8 +182,8 @@ class Masscan(object):
         print(self.__json_parser(jsonpath="1.xml"))
 
 if __name__ == '__main__':
-    n = Nmap()
-    n.scan("192.168.199.1","1-1080")
-    # m = Masscan()
-    # m.scan("-p1-1080","--rate", "10000","39.106.160.62")
+    # n = Nmap()
+    # n.scan("192.168.199.1","1-1080")
+    m = Masscan()
+    print(m.scan("-p1-1080","--rate", "1000","192.168.199.1"))
     # # m.test()
