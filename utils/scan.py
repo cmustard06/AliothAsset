@@ -157,9 +157,9 @@ class Masscan(object):
         try:
             start_time = time.time()
             if sys.platform == 'win32':
-                exec_args = [self.exec_path,"-oJ", temp_file.name,"-sS","-Pn", "--banners"]
+                exec_args = [self.exec_path,"-oJ", temp_file.name,"-sS","-Pn"]
             elif sys.platform =="linux":
-                exec_args = [self.exec_path,"-oJ", temp_file.name,"-sS","-Pn", "--banners"]
+                exec_args = [self.exec_path,"-oJ", temp_file.name,"-sS","-Pn"]
             else:
                 logger.critical("Not support the platform!!!")
                 print("Not support the platform!!!")
