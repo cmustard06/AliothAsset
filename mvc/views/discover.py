@@ -90,7 +90,7 @@ def scan(host, scanmode="masscan"):
         port = res.get("port")
         banner = res.get("service")
     elif scanmode == "nmap+masscan":
-        res = nmapAndmasscan(host)
+        res = nmapAndmasscan(host,ports)
         info = res.get("info")
         port = res.get("port")
         banner = res.get("service")
@@ -107,19 +107,21 @@ def scan(host, scanmode="masscan"):
     db.session.add(result)
     db.session.commit()
 
-def nmapAndmasscan(host):
+def nmapAndmasscan(host,ports):
     '''
     nmap+masscan扫描
     :return:
     '''
     # 使用masscan获取目标的端口信息
     m = Masscan()
-    port_command = "-p1-65535"
+    port_command = "-p{}".format(ports)
     m_result = m.scan(port_command,host)
     open_port = m_result.get("open")
+    print(type(open_port))
     if len(open_port) == 0:
         return None
     # 使用nmap获取详细信息
+    open_port = ",".join([str(x) for x in list(open_port)])
     n = Nmap()
     n_result = n.scan(host,open_port)
     return n_result
@@ -128,4 +130,4 @@ def nmapAndmasscan(host):
     pass
 
 if __name__ == '__main__':
-    masscan("192.168.199.1")
+    print(nmapAndmasscan("192.168.199.1"))
