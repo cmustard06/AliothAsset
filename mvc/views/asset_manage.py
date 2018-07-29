@@ -3,7 +3,6 @@
 
 
 import datetime
-import pymysql
 from flask import render_template, Blueprint, render_template_string, request, url_for, redirect,jsonify
 from mvc import db
 from mvc.model.model import Record
@@ -22,7 +21,6 @@ def display_detail():
             info_id = request.args["info_id"]
         if request.method == 'POST':
             info_id = request.form["info_id"]
-        print(info_id)
         result_list = Record.query.filter(Record.id == int(info_id)).first()
         print("-->", type(result_list))
         if result_list is None:
@@ -49,11 +47,9 @@ def index():
 
         else:
             return redirect(url_for("/404"))
-    except pymysql.Error as e:
-        logger.error(str(e))
-        print(str(e))
     except Exception as e:
         logger.error(str(e))
+        print(str(e))
         return redirect("/404")
 
 
@@ -66,11 +62,7 @@ def asset_add():
         return render_template("add.html")
     if request.method == 'POST':
         data = request.form
-        # ([('server_type', '2'), ('server_name', 'Web应用服务器'), ('deployment_type', '4'),
-        # ('service', 'apache->80,tomcat->8080'), ('local_ip', '192.168.199.2'), ('local_port', '80,8080,22'),
-        #  ('global_ip', '1.1.1.1'), ('global_port', '80,8080'), ('eth1_mac', '12:34:56:78:25:44'), ('eth2_mac', ''),
-        #  ('manager', '慕君要'), ('manager_phone', '13111111111'),
-        #  ('manager_email', 'dmmjy9.com'), ('maintainer', ''), ('maintainer_email', ''), ('desc', '')])
+
         server_type = server_type_map[data['server_type']]
         server_name = data['server_name']
         deployment_type = deployment_type_map[data['deployment_type']]

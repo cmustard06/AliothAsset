@@ -89,6 +89,12 @@ def scan(host, scanmode="masscan"):
         info = res.get("info")
         port = res.get("port")
         banner = res.get("service")
+    elif scanmode == "nmap+masscan":
+        res = nmapAndmasscan(host)
+        info = res.get("info")
+        port = res.get("port")
+        banner = res.get("service")
+
     # 数据库更新
     result = Discover.query.filter(Discover.ip == host).first()
     result.masscan_result = info
@@ -101,11 +107,24 @@ def scan(host, scanmode="masscan"):
     db.session.add(result)
     db.session.commit()
 
-def nmapAndmasscan():
+def nmapAndmasscan(host):
     '''
     nmap+masscan扫描
     :return:
     '''
+    # 使用masscan获取目标的端口信息
+    m = Masscan()
+    port_command = "-p1-65535"
+    m_result = m.scan(port_command,host)
+    open_port = m_result.get("open")
+    if len(open_port) == 0:
+        return None
+    # 使用nmap获取详细信息
+    n = Nmap()
+    n_result = n.scan(host,open_port)
+    return n_result
+
+
     pass
 
 if __name__ == '__main__':
