@@ -1,0 +1,8 @@
+2018-10-18 Thursday 15:57:27 - WARNING -logger.py - main- 22- Houston, we have a thorny problem
+2018-10-18 Thursday 16:01:10 - WARNING -ips.py - _subnet- 48- IP('127.0.0.0/1') has invalid prefix length (1)
+2018-10-18 Thursday 16:01:59 - WARNING -ips.py - _subnet- 48:	IP('127.0.0.0/1') has invalid prefix length (1)
+2018-10-18 Thursday 16:02:52 - WARNING - ips.py - _subnet- 48-message:IP('127.0.0.0/1') has invalid prefix length (1)
+2018-10-18 Thursday 16:03:01 - WARNING - ips.py - _subnet- 48 -message:IP('127.0.0.0/1') has invalid prefix length (1)
+2018-10-18 Thursday 16:03:24 - WARNING - ips.py - _subnet- 48 -log message: IP('127.0.0.0/1') has invalid prefix length (1)
+2018-10-18 Thursday 16:03:34 - WARNING - ips.py - _subnet - 48 - log message: IP('127.0.0.0/1') has invalid prefix length (1)
+2018-10-18 Thursday 17:05:42 - DEBUG - ips.py - _simple_segment - 91 - log message: 192.167.1.444:Data is not recognized
